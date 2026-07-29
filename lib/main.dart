@@ -29,11 +29,7 @@ class HomeScreen extends StatelessWidget {
         child: SafeArea(
           top: false,
           child: Column(
-            children: [
-              _topSection(),
-              _categoriesSection(),
-              // _locationSection(),
-            ],
+            children: [_topSection(), _categoriesSection(), _locationSection()],
           ),
         ),
       ),
@@ -148,6 +144,27 @@ Widget _categoriesSection() {
           ),
         );
       },
+    ),
+  );
+}
+
+Widget _locationSection() {
+  return Container(
+    width: double.infinity,
+    color: Colors.white,
+    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+    child: Row(
+      children: [
+        Icon(Icons.location_on_outlined, color: Colors.blue, size: 28),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            'Чуйская область / Бишкек',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+        ),
+        Icon(Icons.keyboard_arrow_down, color: Colors.black54),
+      ],
     ),
   );
 }

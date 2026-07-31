@@ -29,7 +29,12 @@ class HomeScreen extends StatelessWidget {
         child: SafeArea(
           top: false,
           child: Column(
-            children: [_topSection(), _categoriesSection(), _locationSection()],
+            children: [
+              _topSection(),
+              _categoriesSection(),
+              _locationSection(),
+              Expanded(child: _propertiesSection()),
+            ],
           ),
         ),
       ),
@@ -167,4 +172,130 @@ Widget _locationSection() {
       ],
     ),
   );
+}
+
+Widget _propertiesSection() {
+  final properties = [
+    {
+      'image':
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStDTBaTMGdWCc-7atyWfaoafY5BOxM8aDm8N93v__taJ1Tw5AMXSYHgTg&s=10',
+      'priceDollar': '\$275000',
+      'priceSom': '24 084 500 сом',
+      'monthly': 'от 167 514 сом / мес',
+      'description': 'Продажа • комм. недв. \n131 м2',
+      'time': '2 часа назад',
+      'views': '194',
+      'premiun': true,
+      'urgent': true,
+      'vip': false,
+      'owner': true,
+    },
+    {
+      'image':
+          'https://lalafo.kg/_next/image?url=https%3A%2F%2Fimg5.lalafo.com%2Fi%2Fposters%2Fapi%2Ff9%2Fe5%2F5d%2F865060dbf040d081feb8126762.jpeg&w=384&q=75',
+      'priceDollar': '\$275000',
+      'priceSom': '24 084 500 сом',
+      'monthly': 'от 167 514 сом / мес',
+      'description': 'Продажа • комм. недв. \n131 м2',
+      'time': '23 часа назад',
+      'views': '6594',
+      'premium': true,
+      'urgent': false,
+      'vip': true,
+      'owner': false,
+    },
+  ];
+  return GridView.builder(
+    padding: EdgeInsets.all(10),
+    itemCount: properties.length,
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+    ),
+    itemBuilder: (context, index) {
+      final property = properties[index];
+      return PropertyCard(
+        image: property['image'] as String,
+        priceDollar: property['priceDollar'] as String,
+        priceSom: property['priceSom'] as String,
+        monthly: property['monthly'] as String,
+        description: property['description'] as String,
+        time: property['time'] as String,
+        views: property['views'] as String,
+        premium: property['premium'] as bool,
+        urgent: property['urgent'] as bool,
+        vip: property['vip'] as bool,
+        owner: property['owner'] as bool,
+      );
+    },
+  );
+}
+
+class PropertyCard extends StatelessWidget {
+  final String image;
+  final String priceDollar;
+  final String priceSom;
+  final String monthly;
+  final String description;
+  final String time;
+  final String views;
+  final bool premium;
+  final bool urgent;
+  final bool vip;
+  final bool owner;
+
+  const PropertyCard({
+    super.key,
+    required this.image,
+    required this.priceDollar,
+    required this.priceSom,
+    required this.monthly,
+    required this.description,
+    required this.time,
+    required this.views,
+    required this.premium,
+    required this.urgent,
+    required this.vip,
+    required this.owner,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.yellow),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 5,
+            child: Image.network(
+              image,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    priceDollar,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
